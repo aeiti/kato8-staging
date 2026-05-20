@@ -58,27 +58,15 @@ jobs:
           REACT_APP_VERSION: ${{ steps.version.outputs.version }}
         run: npm run build
 
-      - name: Locate build output
-        id: build_dir
-        run: |
-          set -euo pipefail
-          if [ -d docs ]; then
-            echo "dir=docs" >> "$GITHUB_OUTPUT"
-          elif [ -d dist ]; then
-            echo "dir=dist" >> "$GITHUB_OUTPUT"
-          elif [ -d build ]; then
-            echo "dir=build" >> "$GITHUB_OUTPUT"
-          else
-            echo "::error::No docs/, dist/, or build/ directory found after build"
-            exit 1
-          fi
-
       - name: Package build artifact
         run: |
           set -euo pipefail
-          DIR="${{ steps.build_dir.outputs.dir }}"
           TAG="${{ steps.version.outputs.tag }}"
-          tar -czf "build-${TAG}.tar.gz" -C "$DIR" .
+          if [ ! -d docs ]; then
+            echo "::error::Expected build output at docs/ (set by vite.config.js outDir)"
+            exit 1
+          fi
+          tar -czf "build-${TAG}.tar.gz" -C docs .
 
       - name: Create and push tag
         env:
