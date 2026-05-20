@@ -1,4 +1,6 @@
-export const games = [
+import { asset } from '../utils/asset.js'
+
+const rawGames = [
   {
     slug: 'corebound',
     title: 'Corebound',
@@ -115,4 +117,14 @@ export const games = [
   },
 ]
 
+const transformAssets = (val) => {
+  if (typeof val === 'string') return asset(val)
+  if (Array.isArray(val)) return val.map(transformAssets)
+  if (val && typeof val === 'object') {
+    return Object.fromEntries(Object.entries(val).map(([k, v]) => [k, transformAssets(v)]))
+  }
+  return val
+}
+
+export const games = rawGames.map(transformAssets)
 export const getGameBySlug = (slug) => games.find((g) => g.slug === slug)
