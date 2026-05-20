@@ -62,12 +62,14 @@ jobs:
         id: build_dir
         run: |
           set -euo pipefail
-          if [ -d dist ]; then
+          if [ -d docs ]; then
+            echo "dir=docs" >> "$GITHUB_OUTPUT"
+          elif [ -d dist ]; then
             echo "dir=dist" >> "$GITHUB_OUTPUT"
           elif [ -d build ]; then
             echo "dir=build" >> "$GITHUB_OUTPUT"
           else
-            echo "::error::No dist/ or build/ directory found after build"
+            echo "::error::No docs/, dist/, or build/ directory found after build"
             exit 1
           fi
 
