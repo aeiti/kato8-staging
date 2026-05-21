@@ -1,6 +1,8 @@
 import { useParams } from 'react-router-dom'
 import { getGameBySlug } from '../data/games'
+import { gameRoutes } from '../data/seo-config'
 import NotFoundPage from './NotFoundPage'
+import Seo from '../components/Seo'
 import { asset } from '../utils/asset.js'
 
 function RichText({ paragraphs, extraClass = '' }) {
@@ -19,18 +21,21 @@ export default function GamePage() {
 
   if (!game) return <NotFoundPage />
 
+  const seo = gameRoutes[slug]
+
   return (
     <section className="game-page-main">
+      {seo && <Seo path={`/games/${slug}`} {...seo} />}
       <div className="game-hero-bg-wrapper">
         <div className="game-hero-bg-layer">
-          <img src={asset('/Assets/img/corebound-hero-background.svg')} loading="lazy" alt="" className="game-hero-bg-image" />
+          <img src={asset('/assets/img/corebound-hero-background.svg')} loading="lazy" alt="" className="game-hero-bg-image" />
         </div>
         <div className="game-hero-bg-wireframe">
           <img
-            src={asset('/Assets/img/wire-layer.webp')}
+            src={asset('/assets/img/wire-layer.webp')}
             loading="lazy"
             sizes="100vw"
-            srcSet={asset('/Assets/img/wire-layer-500.webp 500w, /Assets/img/wire-layer-800.webp 800w, /Assets/img/wire-layer-1080.webp 1080w, /Assets/img/wire-layer-1600.webp 1600w, /Assets/img/wire-layer.webp 1920w')}
+            srcSet={asset('/assets/img/wire-layer-500.webp 500w, /assets/img/wire-layer-800.webp 800w, /assets/img/wire-layer-1080.webp 1080w, /assets/img/wire-layer-1600.webp 1600w, /assets/img/wire-layer.webp 1920w')}
             alt=""
             className="game-hero-bg-image"
           />
@@ -39,7 +44,7 @@ export default function GamePage() {
 
       <div className="game-hero-bg-mobile-wrapper">
         <div className="game-hero-bg-mobile-image">
-          <img src={asset('/Assets/img/mobile-bg.svg')} loading="lazy" alt="" className="game-hero-bg-mobile" />
+          <img src={asset('/assets/img/mobile-bg.svg')} loading="lazy" alt="" className="game-hero-bg-mobile" />
         </div>
       </div>
 
@@ -67,12 +72,12 @@ export default function GamePage() {
             <div className="games_contest-wrapper">
               <div className="game-hero-art-wrapper">
                 <div className="game-framed-art">
-                  <img src={asset('/Assets/img/game-framed-art.svg')} loading="lazy" alt="" className="game-hero-art-frame-desktop" />
+                  <img src={asset('/assets/img/game-framed-art.svg')} loading="lazy" alt="" className="game-hero-art-frame-desktop" />
                 </div>
               </div>
               <div className="game-hero-art-mobile">
                 <div className="game-framed-art">
-                  <img src={asset('/Assets/img/game-framed-art-mobile.svg')} loading="lazy" alt="" className="game-hero-art-frame-mobile" />
+                  <img src={asset('/assets/img/game-framed-art-mobile.svg')} loading="lazy" alt="" className="game-hero-art-frame-mobile" />
                 </div>
               </div>
             </div>
