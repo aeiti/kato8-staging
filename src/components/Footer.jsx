@@ -49,10 +49,10 @@ export default function Footer() {
         <div className="w-layout-grid grid_6-col gap-small">
           <div className="footer-brand-block">
             <img
-              src={asset('/Assets/img/anime-type.png')}
+              src={asset('/assets/img/anime-type.png')}
               loading="lazy"
               sizes="(max-width: 624px) 100vw, 624px"
-              srcSet={asset('/Assets/img/anime-type-500.png 500w, /Assets/img/anime-type.png 624w')}
+              srcSet={asset('/assets/img/anime-type-500.png 500w, /assets/img/anime-type.png 624w')}
               alt="Kato.8 Studios"
               className="footer-brand-logo"
             />
