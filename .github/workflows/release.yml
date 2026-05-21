@@ -56,6 +56,10 @@ jobs:
         env:
           VITE_APP_VERSION: ${{ steps.version.outputs.version }}
           REACT_APP_VERSION: ${{ steps.version.outputs.version }}
+          # Staging-flavored artifact: '/kato8-staging/' base, no CNAME.
+          # Without this, the release tarball would embed kato8studios.com
+          # and could be mistakenly used to deploy as prod.
+          VITE_DEPLOY_TARGET: staging
         run: npm run build
 
       - name: Package build artifact
