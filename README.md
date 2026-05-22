@@ -4,6 +4,10 @@ Staging deployment of the Kato.8 Studios marketing site. Live at <https://aeiti.
 
 Source code mirrors [terrytkato8/external-site](https://github.com/terrytkato8/external-site). **The canonical docs live there** — see that repo's [README.md](https://github.com/terrytkato8/external-site/blob/main/README.md) and [ARCHITECTURE.md](https://github.com/terrytkato8/external-site/blob/main/ARCHITECTURE.md) for tech stack, dev commands, repo layout, and the design rationale.
 
+Code-level documentation is also mirrored here:
+- [COMPONENTS.md](./COMPONENTS.md) — render-tree map and per-file pointers for the website code.
+- JSDoc headers on every file under `src/`.
+
 This README is intentionally short and covers only what's specific to the staging repo.
 
 ## Local dev
