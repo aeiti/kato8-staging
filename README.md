@@ -26,9 +26,7 @@ Pages source for this repo is set to "GitHub Actions" — the committed `docs/` 
 
 ## Versioning
 
-**This repo does not auto-tag.** CalVer (`vYYYY.MM.DD.N`) tags are created exclusively by the prod repo's release workflow and mirrored here via the `STAGING_TAG_TOKEN` PAT. See the prod repo's [ARCHITECTURE.md → Version sync](https://github.com/terrytkato8/external-site/blob/main/ARCHITECTURE.md#version-sync) for the full mechanism.
-
-The repo had its own `release.yml` at one point; it was deliberately removed in [PR #5](https://github.com/aeiti/kato8-staging/pull/5). Don't re-add one — it would diverge tags between the two repos.
+This repo auto-tags on every push to `main` via [`.github/workflows/release.yml`](./.github/workflows/release.yml). CalVer format `vYYYY.MM.DD.N`. Patch numbers are computed from this repo's own tag history — staging and prod tag independently and version numbers are unrelated.
 
 ## When to push here
 
