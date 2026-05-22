@@ -7,7 +7,7 @@ This file is auto-loaded by Claude Code when working in this repo. The canonical
 This is the staging mirror of `terrytkato8/external-site`. Same source code, different deploy target.
 
 - **Deploy workflow**: [`.github/workflows/deploy-staging.yml`](./.github/workflows/deploy-staging.yml) on push to `main`. Builds with `VITE_DEPLOY_TARGET=staging` → publishes to <https://aeiti.github.io/kato8-staging/>.
-- **No release workflow.** Version tags come from the prod repo via the `STAGING_TAG_TOKEN` PAT. Do not add a `release.yml` here.
+- **Release workflow**: [`.github/workflows/release.yml`](./.github/workflows/release.yml) on push to `main`. Cuts CalVer tags from this repo's own tag history. Independent from prod — version numbers between the two repos are unrelated.
 - **Base URL is `/kato8-staging/`** for all builds in this repo (set by `VITE_DEPLOY_TARGET=staging` in CI; `vite.config.js` reads the env var).
 
 ## When porting changes from prod
