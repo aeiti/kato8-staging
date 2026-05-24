@@ -5,3 +5,10 @@ dist
 dist-ssr
 *.local
 .vite
+
+# macOS case-insensitive filesystem aliases the lowercase /assets/ and
+# capital /Assets/ paths to the same physical dir. Ignore the capital-A
+# views so git status doesn't show phantom untracked entries every time
+# something writes to /assets/.
+public/Assets/
+docs/Assets/
