@@ -2,7 +2,7 @@
 
 Map of the React code that generates the site. Pair this with each file's JSDoc header for full context — this file is the bird's-eye view, the headers are the details.
 
-For build/deploy/version-system docs, see [ARCHITECTURE.md](./ARCHITECTURE.md).
+For build/deploy/version-system docs, see [ARCHITECTURE.md](https://github.com/terrytkato8/external-site/blob/main/ARCHITECTURE.md) in the prod repo (this repo doesn't carry its own copy).
 
 ## Render tree
 
