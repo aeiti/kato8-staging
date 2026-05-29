@@ -14,3 +14,8 @@ dist-ssr
 # something writes to /assets/.
 public/Assets/
 docs/Assets/
+
+# Generated WebP variants under src/assets/games/**/concept/ (produced
+# at build time by scripts/generate-image-variants.mjs). Source images
+# are committed; variants regenerate from them on every build.
+src/assets/games/**/concept/**/*-[0-9]*w.webp
