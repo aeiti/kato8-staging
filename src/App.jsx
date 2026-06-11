@@ -40,6 +40,10 @@ export default function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        {/* When USB and BBC also adopt SimpleGamePage, collapse these
+            two routes into a single `/games/:slug` route with a tiny
+            dispatcher component, and let SimpleGamePage read its slug
+            via useParams() instead of taking it as a prop. */}
         <Route path="/games/last-light" element={<SimpleGamePage slug="last-light" />} />
         <Route path="/games/:slug" element={<GamePage />} />
         <Route path="/about-us" element={<AboutPage />} />
