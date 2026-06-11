@@ -128,22 +128,6 @@
   margin-bottom: 0;
 }
 
-/* Match the Figma's neutral-gray concept-art treatment when nested
- * inside .simple-game-page (the global concept-art-gallery uses purple). */
-.simple-game-page .concept-art-row-label {
-  color: #a3a3a3;
-}
-
-.simple-game-page .concept-art-row-divider {
-  background-color: #a3a3a3;
-  height: 8px;
-  border-radius: 4px;
-}
-
-.simple-game-page .concept-art-heading {
-  color: #1b1b26;
-}
-
 @media screen and (max-width: 1199px) {
   .simple-game-hero {
           padding-inline: 80px;
