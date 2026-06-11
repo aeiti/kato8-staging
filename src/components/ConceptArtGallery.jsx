@@ -5,9 +5,10 @@ import { useEffect, useRef, useState } from 'react'
  * scrollable concept-art rows for a game.
  *
  * Hands-off authoring model: a designer drops a source image into
- * `src/assets/games/<slug>/concept/<category>/<filename>.<jpg|png>` and
- * commits. The build pipeline (`scripts/generate-image-variants.mjs`)
- * produces WebP variants at 500/800/1080/1600w alongside the source.
+ * `src/assets/games/<slug>/concept/<category>/<filename>.<jpg|png|svg>`
+ * and commits. The build pipeline (`scripts/generate-image-variants.mjs`)
+ * produces WebP variants at 500/800/1080/1600w for raster sources; SVGs
+ * are served as-is (no variants, no srcSet).
  *
  * How it works:
  *   - `import.meta.glob` (eager, URL mode) enumerates every source image
@@ -30,7 +31,7 @@ import { useEffect, useRef, useState } from 'react'
 // Eagerly enumerate everything up front. Vite resolves these to hashed
 // URLs at build time and tree-shakes nothing — the gallery's "drop a
 // file in" promise needs *all* files known statically.
-const sourceModules = import.meta.glob('/src/assets/games/*/concept/*/*.{jpg,jpeg,png}', { eager: true, query: '?url', import: 'default' })
+const sourceModules = import.meta.glob('/src/assets/games/*/concept/*/*.{jpg,jpeg,png,svg}', { eager: true, query: '?url', import: 'default' })
 const variantModules = import.meta.glob('/src/assets/games/*/concept/*/*-[0-9]*w.webp', { eager: true, query: '?url', import: 'default' })
 
 // Build an index keyed by `<slug>/<category>/<stem>` → { src, variants }
@@ -55,7 +56,7 @@ function buildGalleryIndex(sources, variants) {
   // Now group sources: slug → category → [{ filename, src, srcSet, alt }, ...]
   const bySlug = new Map()
   for (const [path, url] of Object.entries(sources)) {
-    const match = path.match(/\/src\/assets\/games\/([^/]+)\/concept\/([^/]+)\/(.+)\.(jpg|jpeg|png)$/i)
+    const match = path.match(/\/src\/assets\/games\/([^/]+)\/concept\/([^/]+)\/(.+)\.(jpg|jpeg|png|svg)$/i)
     if (!match) continue
     const [, slug, category, stem, ext] = match
     const filename = `${stem}.${ext}`
