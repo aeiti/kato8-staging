@@ -34,6 +34,7 @@ import './styles/main/pages/about.css'
 import './styles/main/support.css'
 import './styles/main/newsletter-signup.css'
 import './styles/main/pages/games.css'
+import './styles/main/pages/simple-game.css'
 import './styles/main/concept-art-gallery.css'
 import './styles/mobile-menu.css'
 

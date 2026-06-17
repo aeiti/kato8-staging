@@ -5,6 +5,7 @@ import ScrollToTop from './components/ScrollToTop'
 import Analytics from './components/Analytics'
 import HomePage from './pages/HomePage'
 import GamePage from './pages/GamePage'
+import SimpleGamePage from './pages/SimpleGamePage'
 import AboutPage from './pages/AboutPage'
 import NotFoundPage from './pages/NotFoundPage'
 
@@ -39,6 +40,11 @@ export default function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        {/* When USB and BBC also adopt SimpleGamePage, collapse these
+            two routes into a single `/games/:slug` route with a tiny
+            dispatcher component, and let SimpleGamePage read its slug
+            via useParams() instead of taking it as a prop. */}
+        <Route path="/games/last-light" element={<SimpleGamePage slug="last-light" />} />
         <Route path="/games/:slug" element={<GamePage />} />
         <Route path="/about-us" element={<AboutPage />} />
         <Route path="*" element={<NotFoundPage />} />

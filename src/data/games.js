@@ -72,6 +72,10 @@ const rawGames = [
     bgImage: null,
     comingSoon: false,
     framedArt: false,
+    coverImage: {
+      src: '/assets/img/last-light-cover.svg',
+      alt: 'Last Light cover art',
+    },
     gameplay: [
       'In Last Light, players must scavenge, fortify, and endure relentless waves of the undead in a brutal world where every decision can mean survival or extinction.',
       'Explore abandoned buildings, gather vital resources, and build defenses to protect your safehouse before the next horde arrives. Ammunition is scarce and noise attracts danger — forcing players to rely on melee combat, careful planning, and strategic upgrades to survive.',
