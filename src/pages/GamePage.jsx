@@ -170,6 +170,7 @@ export default function GamePage() {
       <ConceptArtGallery gameSlug={game.slug} />
 
       <PlaytestSignupForm
+        key={game.slug}
         source={`${game.slug}-page`}
         gameTitle={game.title}
         endpoint={playtestEndpoints[game.slug]}
