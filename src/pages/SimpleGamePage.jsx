@@ -1,8 +1,10 @@
 import { getGameBySlug } from '../data/games'
 import { gameRoutes } from '../data/seo-config'
+import { playtestEndpoints } from '../data/playtestEndpoints'
 import NotFoundPage from './NotFoundPage'
 import Seo from '../components/Seo'
 import ConceptArtGallery from '../components/ConceptArtGallery'
+import PlaytestSignupForm from '../components/PlaytestSignupForm'
 
 /**
  * Route variant for game detail pages that use the simplified Figma
@@ -71,6 +73,12 @@ export default function SimpleGamePage({ slug }) {
       </div>
 
       <ConceptArtGallery gameSlug={game.slug} />
+
+      <PlaytestSignupForm
+        source={`${game.slug}-page`}
+        gameTitle={game.title}
+        endpoint={playtestEndpoints[game.slug]}
+      />
     </section>
   )
 }

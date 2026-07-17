@@ -1,19 +1,28 @@
 import { useState } from 'react'
 
 /**
- * Universal Serial Blade demo / playtest sign-up form. Self-contained:
- * validation, submission, idle / submitting / success / error states,
- * honeypot for basic bot filtering.
+ * Reusable per-game playtest sign-up form. Self-contained: validation,
+ * submission, idle / submitting / success / error states, honeypot for
+ * basic bot filtering.
  *
  * Posts `{ name, email, discordHandle, platform, availability, source }`
- * to `VITE_USB_PLAYTEST_ENDPOINT` (a Formspree endpoint). If that env
- * var is unset, submit resolves successfully with no network call so
- * the form is usable in dev before the endpoint is provisioned.
+ * to the `endpoint` URL (typically a Formspree form; the caller resolves
+ * a per-game env var and passes the value in — see
+ * `src/data/playtestEndpoints.js`). If `endpoint` is unset, submit
+ * resolves successfully with no network call so the form is usable in
+ * dev before the endpoint is provisioned.
  *
  * Props:
  *   - source?: string — identifier for where the form lives (e.g.
- *     `'usb-page'`, `'preview'`). Sent with the payload for attribution.
- *   - heading?: string — section heading. Pass `null` to omit.
+ *     `'universal-serial-blade-page'`, `'preview'`). Sent with the
+ *     payload for attribution.
+ *   - gameTitle?: string — game name interpolated into the default
+ *     heading. Omit if you pass `heading` explicitly.
+ *   - endpoint?: string — Formspree URL to POST to. Omit for previews /
+ *     dev; the form still works, just skips the network call.
+ *   - heading?: string — section heading. Defaults to
+ *     `Sign up to playtest ${gameTitle}` when `gameTitle` is provided.
+ *     Pass `null` to omit.
  *   - description?: string — copy under the heading. Pass `null` to omit.
  *   - legalConsent?: ReactNode — if provided, renders a required
  *     checkbox with this content as the label at the bottom of the form.
@@ -22,10 +31,18 @@ import { useState } from 'react'
  */
 export default function PlaytestSignupForm({
   source = 'unknown',
-  heading = 'Sign up to playtest Universal Serial Blade',
+  gameTitle = null,
+  endpoint,
+  heading,
   description = 'Help us shape the game. We’ll email you when a build is ready.',
   legalConsent = null,
 }) {
+  const resolvedHeading =
+    heading === undefined
+      ? gameTitle
+        ? `Sign up to playtest ${gameTitle}`
+        : 'Sign up to playtest'
+      : heading
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [discordHandle, setDiscordHandle] = useState('')
@@ -64,7 +81,6 @@ export default function PlaytestSignupForm({
     setStatus('submitting')
     setErrorMessage('')
 
-    const endpoint = import.meta.env.VITE_USB_PLAYTEST_ENDPOINT
     try {
       if (endpoint) {
         const response = await fetch(endpoint, {
@@ -84,7 +100,7 @@ export default function PlaytestSignupForm({
         })
         if (!response.ok) throw new Error(`Signup failed (${response.status})`)
       } else {
-        console.warn('PlaytestSignupForm: VITE_USB_PLAYTEST_ENDPOINT not set; skipping network call.')
+        console.warn(`PlaytestSignupForm: no endpoint provided (source=${source}); skipping network call.`)
       }
       setStatus('success')
       setName('')
@@ -111,7 +127,7 @@ export default function PlaytestSignupForm({
 
   return (
     <section className="signup-form">
-      {heading && <h2 className="signup-form__heading">{heading}</h2>}
+      {resolvedHeading && <h2 className="signup-form__heading">{resolvedHeading}</h2>}
       {description && <p className="signup-form__description">{description}</p>}
       <form className="signup-form__form" onSubmit={handleSubmit} noValidate>
         <label className="signup-form__honeypot" aria-hidden="true">

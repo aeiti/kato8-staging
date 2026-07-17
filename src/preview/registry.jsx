@@ -173,11 +173,11 @@ export const previews = [
   // ── Forms ─────────────────────────────────────────────────────────
   {
     name: 'playtest-signup',
-    label: 'PlaytestSignupForm (USB playtest)',
+    label: 'PlaytestSignupForm (per-game)',
     group: 'Forms',
     render: () => (
       <main style={{ padding: '2rem 1rem' }}>
-        <PlaytestSignupForm source="preview" />
+        <PlaytestSignupForm source="preview" gameTitle="Universal Serial Blade" />
       </main>
     ),
   },
