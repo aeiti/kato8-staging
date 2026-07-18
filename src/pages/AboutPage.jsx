@@ -1,5 +1,5 @@
+import DiscordSignupForm from '../components/DiscordSignupForm'
 import GoFundMeWidget from '../components/GoFundMeWidget'
-import NewsletterSignup from '../components/NewsletterSignup'
 import Seo from '../components/Seo'
 import { staticRoutes } from '../data/seo-config'
 import { asset } from '../utils/asset.js'
@@ -7,14 +7,15 @@ import { asset } from '../utils/asset.js'
 /**
  * Route: `/about-us`.
  *
- * Four sections, each statically authored (no data file) except the
+ * Five sections, each statically authored (no data file) except the
  * last:
  *   1. About Us — mascot image + studio mission blurb.
  *   2. Why Kato.8? — the story behind the studio name + Kato dog photo
  *      (responsive srcSet).
- *   3. Support Kato.8 — pitch + GoFundMe widget.
- *   4. Newsletter signup — `NewsletterSignup` component, POSTs to
- *      `VITE_NEWSLETTER_ENDPOINT` with `source="about"`.
+ *   3. Documentary — embedded YouTube episode about the studio.
+ *   4. Support Kato.8 — pitch + GoFundMe widget.
+ *   5. Discord community signup — `DiscordSignupForm` with
+ *      `source="about"`.
  *
  * Edit the copy directly in this file. SEO meta comes from
  * `staticRoutes['/about-us']` in `src/data/seo-config.js`.
@@ -88,7 +89,7 @@ export default function AboutPage() {
         <GoFundMeWidget size="large" />
       </div>
 
-      <NewsletterSignup source="about" />
+      <DiscordSignupForm source="about" />
     </>
   )
 }

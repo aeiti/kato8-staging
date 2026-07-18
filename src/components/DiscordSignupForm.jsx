@@ -1,18 +1,20 @@
 import { useState } from 'react'
 
 /**
- * Universal Serial Blade Discord community application form.
- * Self-contained: validation, submission, idle / submitting / success /
- * error states, honeypot for basic bot filtering.
+ * Kato.8 Discord community sign-up form. Self-contained: validation,
+ * submission, idle / submitting / success / error states, honeypot for
+ * basic bot filtering.
  *
  * Posts `{ name, email, discordHandle, ageConfirmed, motivation, source }`
- * to `VITE_USB_DISCORD_ENDPOINT` (a Formspree endpoint). If that env
- * var is unset, submit resolves successfully with no network call so
- * the form is usable in dev before the endpoint is provisioned.
+ * to the "Kato8 Discord Signup" Formspree endpoint. URL is hardcoded
+ * below because Formspree endpoints are public by design (the browser
+ * POSTs directly to them), so there's no benefit to a build-time env
+ * var — the built JS would contain the same string anyway. Source of
+ * truth for the URL lives in `FORMSPREE.md` in the prod repo.
  *
  * Props:
  *   - source?: string — identifier for where the form lives (e.g.
- *     `'usb-page'`, `'preview'`). Sent with the payload for attribution.
+ *     `'about'`, `'preview'`). Sent with the payload for attribution.
  *   - heading?: string — section heading. Pass `null` to omit.
  *   - description?: string — copy under the heading. Pass `null` to omit.
  *   - legalConsent?: ReactNode — if provided, renders a required
@@ -20,9 +22,11 @@ import { useState } from 'react'
  *     Use for community rules / terms-of-service acknowledgment. Omit to
  *     hide the checkbox until legal text is finalized.
  */
-export default function DiscordApplicationForm({
+const DISCORD_SIGNUP_ENDPOINT = 'https://formspree.io/f/xrenpjrq'
+
+export default function DiscordSignupForm({
   source = 'unknown',
-  heading = 'Apply to join the Discord community',
+  heading = 'Join the Kato.8 Discord community',
   description = 'Tell us a little about yourself and we’ll send an invite.',
   legalConsent = null,
 }) {
@@ -79,28 +83,23 @@ export default function DiscordApplicationForm({
     setStatus('submitting')
     setErrorMessage('')
 
-    const endpoint = import.meta.env.VITE_USB_DISCORD_ENDPOINT
     try {
-      if (endpoint) {
-        const response = await fetch(endpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: JSON.stringify({
-            name: name.trim(),
-            email: trimmedEmail,
-            discordHandle: discordHandle.trim(),
-            ageConfirmed,
-            motivation: motivation.trim(),
-            source,
-          }),
-        })
-        if (!response.ok) throw new Error(`Application failed (${response.status})`)
-      } else {
-        console.warn('DiscordApplicationForm: VITE_USB_DISCORD_ENDPOINT not set; skipping network call.')
-      }
+      const response = await fetch(DISCORD_SIGNUP_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: trimmedEmail,
+          discordHandle: discordHandle.trim(),
+          ageConfirmed,
+          motivation: motivation.trim(),
+          source,
+        }),
+      })
+      if (!response.ok) throw new Error(`Application failed (${response.status})`)
       setStatus('success')
       setName('')
       setEmail('')
