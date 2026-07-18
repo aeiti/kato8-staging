@@ -11,7 +11,7 @@ import ConceptArtGallery from '../components/ConceptArtGallery'
 import { SocialIcon, socialLinks } from '../components/SocialIcons'
 import NewsletterSignup from '../components/NewsletterSignup'
 import PlaytestSignupForm from '../components/PlaytestSignupForm'
-import DiscordApplicationForm from '../components/DiscordApplicationForm'
+import DiscordSignupForm from '../components/DiscordSignupForm'
 import { games } from '../data/games'
 
 /**
@@ -182,12 +182,12 @@ export const previews = [
     ),
   },
   {
-    name: 'discord-application',
-    label: 'DiscordApplicationForm',
+    name: 'discord-signup',
+    label: 'DiscordSignupForm',
     group: 'Forms',
     render: () => (
       <main style={{ padding: '2rem 1rem' }}>
-        <DiscordApplicationForm source="preview" />
+        <DiscordSignupForm source="preview" />
       </main>
     ),
   },
