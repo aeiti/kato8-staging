@@ -183,11 +183,11 @@ export const previews = [
   },
   {
     name: 'discord-signup',
-    label: 'DiscordSignupForm',
+    label: 'DiscordSignupForm (per-game)',
     group: 'Forms',
     render: () => (
       <main style={{ padding: '2rem 1rem' }}>
-        <DiscordSignupForm source="preview" />
+        <DiscordSignupForm source="preview" gameTitle="Universal Serial Blade" />
       </main>
     ),
   },
