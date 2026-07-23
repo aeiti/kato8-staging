@@ -1,10 +1,12 @@
 import { getGameBySlug } from '../data/games'
 import { gameRoutes } from '../data/seo-config'
 import { playtestEndpoints } from '../data/playtestEndpoints'
+import { discordEndpoints } from '../data/discordEndpoints'
 import NotFoundPage from './NotFoundPage'
 import Seo from '../components/Seo'
 import ConceptArtGallery from '../components/ConceptArtGallery'
 import PlaytestSignupForm from '../components/PlaytestSignupForm'
+import DiscordSignupForm from '../components/DiscordSignupForm'
 
 /**
  * Route variant for game detail pages that use the simplified Figma
@@ -75,10 +77,17 @@ export default function SimpleGamePage({ slug }) {
       <ConceptArtGallery gameSlug={game.slug} />
 
       <PlaytestSignupForm
-        key={game.slug}
+        key={`playtest-${game.slug}`}
         source={`${game.slug}-page`}
         gameTitle={game.title}
         endpoint={playtestEndpoints[game.slug]}
+      />
+
+      <DiscordSignupForm
+        key={`discord-${game.slug}`}
+        source={`${game.slug}-page`}
+        gameTitle={game.title}
+        endpoint={discordEndpoints[game.slug]}
       />
     </section>
   )
