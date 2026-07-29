@@ -37,6 +37,7 @@ import './styles/main/signup-form.css'
 import './styles/main/pages/games.css'
 import './styles/main/pages/simple-game.css'
 import './styles/main/concept-art-gallery.css'
+import './styles/main/kickstarter-button.css'
 import './styles/mobile-menu.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
