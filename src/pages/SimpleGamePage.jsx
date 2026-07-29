@@ -7,6 +7,7 @@ import Seo from '../components/Seo'
 import ConceptArtGallery from '../components/ConceptArtGallery'
 import PlaytestSignupForm from '../components/PlaytestSignupForm'
 import DiscordSignupForm from '../components/DiscordSignupForm'
+import KickstarterButton from '../components/KickstarterButton'
 
 /**
  * Route variant for game detail pages that use the simplified Figma
@@ -71,6 +72,12 @@ export default function SimpleGamePage({ slug }) {
               <p key={i}>{paragraph}</p>
             ))}
           </div>
+
+          {game.kickstarterUrl && (
+            <div className="game-hero-kickstarter">
+              <KickstarterButton href={game.kickstarterUrl} />
+            </div>
+          )}
         </div>
       </div>
 
