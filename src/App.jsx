@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage'
 import GamePage from './pages/GamePage'
 import SimpleGamePage from './pages/SimpleGamePage'
 import AboutPage from './pages/AboutPage'
+import CrowdfundingGamesPage from './pages/CrowdfundingGamesPage'
 import NotFoundPage from './pages/NotFoundPage'
 import PreviewPage from './preview/PreviewPage'
 
@@ -48,6 +49,7 @@ export default function App() {
         <Route path="/games/last-light" element={<SimpleGamePage slug="last-light" />} />
         <Route path="/games/:slug" element={<GamePage />} />
         <Route path="/about-us" element={<AboutPage />} />
+        <Route path="/crowdfunding-games" element={<CrowdfundingGamesPage />} />
         <Route path="/preview" element={<PreviewPage />} />
         <Route path="/preview/:name" element={<PreviewPage />} />
         <Route path="*" element={<NotFoundPage />} />
