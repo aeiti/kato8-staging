@@ -48,6 +48,14 @@ export const staticRoutes = {
     ogDescription:
       'Kato.8 Studios crafts meaningful, human-centered games inspired by the classics. Meet the team and learn the story behind our name.',
   },
+  '/crowdfunding-games': {
+    title: 'Crowdfunding Games | Kato.8 Studios',
+    description:
+      'Quick, experimental games built by the Kato.8 team between larger projects. Every purchase directly supports the studio and gives us more room to keep creating.',
+    ogTitle: 'Crowdfunding Games — Support Kato.8 Studios',
+    ogDescription:
+      'Discover quick, experimental games from Kato.8 Studios. Every purchase directly supports the studio and helps us keep creating.',
+  },
 }
 
 export const gameRoutes = {
