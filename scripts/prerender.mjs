@@ -10,6 +10,7 @@ import {
   SITE,
   staticRoutes,
   gameRoutes,
+  crowdfundingGameRoutes,
   listPrerenderRoutes,
 } from '../src/data/seo-config.js'
 
@@ -41,6 +42,8 @@ function routeMetaFor(pathname) {
   if (staticRoutes[pathname]) return staticRoutes[pathname]
   const m = pathname.match(/^\/games\/([^/]+)\/?$/)
   if (m && gameRoutes[m[1]]) return gameRoutes[m[1]]
+  const cf = pathname.match(/^\/crowdfunding-games\/([^/]+)\/?$/)
+  if (cf && crowdfundingGameRoutes[cf[1]]) return crowdfundingGameRoutes[cf[1]]
   throw new Error(`No SEO config for route ${pathname}`)
 }
 

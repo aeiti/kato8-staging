@@ -8,6 +8,7 @@ import GamePage from './pages/GamePage'
 import SimpleGamePage from './pages/SimpleGamePage'
 import AboutPage from './pages/AboutPage'
 import CrowdfundingGamesPage from './pages/CrowdfundingGamesPage'
+import CrowdfundingGamePage from './pages/CrowdfundingGamePage'
 import NotFoundPage from './pages/NotFoundPage'
 import PreviewPage from './preview/PreviewPage'
 
@@ -20,20 +21,30 @@ import PreviewPage from './preview/PreviewPage'
  * change).
  *
  * Routes:
- *   `/`                → HomePage
- *   `/games/:slug`     → GamePage (404s in-app for unknown slugs)
- *   `/about-us`        → AboutPage
- *   anything else      → NotFoundPage
+ *   `/`                        → HomePage
+ *   `/games/last-light`        → SimpleGamePage (simplified layout)
+ *   `/games/:slug`             → GamePage (404s in-app for unknown slugs)
+ *   `/about-us`                → AboutPage
+ *   `/crowdfunding-games`      → CrowdfundingGamesPage (landing grid)
+ *   `/crowdfunding-games/:slug`→ CrowdfundingGamePage (demo detail)
+ *   anything else              → NotFoundPage
  *
- * Body class toggle: game pages use `body-2`, everything else uses
- * `body`. The two classes drive different layout styles in CSS
- * (`body-2` removes the max-width constraint so the game-page hero
- * background can span the full viewport).
+ * Body class toggle: game detail pages (core `/games/:slug` and the
+ * crowdfunding `/crowdfunding-games/:slug` demos) use `body-2`,
+ * everything else uses `body`. The two classes drive different layout
+ * styles in CSS (`body-2` removes the max-width constraint so the hero
+ * can span the full viewport).
  */
 export default function App() {
   const location = useLocation()
-  const isGamePage = location.pathname.startsWith('/games/')
-  const bodyClass = isGamePage ? 'body-2' : 'body'
+  // Full-bleed layout for game detail pages: the core `/games/:slug` pages
+  // and the crowdfunding demo pages (`/crowdfunding-games/:slug`), but NOT
+  // the crowdfunding landing (`/crowdfunding-games`), which stays a normal
+  // max-width page.
+  const isFullWidthPage =
+    location.pathname.startsWith('/games/') ||
+    /^\/crowdfunding-games\/[^/]+/.test(location.pathname)
+  const bodyClass = isFullWidthPage ? 'body-2' : 'body'
 
   return (
     <div className={bodyClass}>
@@ -50,6 +61,7 @@ export default function App() {
         <Route path="/games/:slug" element={<GamePage />} />
         <Route path="/about-us" element={<AboutPage />} />
         <Route path="/crowdfunding-games" element={<CrowdfundingGamesPage />} />
+        <Route path="/crowdfunding-games/:slug" element={<CrowdfundingGamePage />} />
         <Route path="/preview" element={<PreviewPage />} />
         <Route path="/preview/:name" element={<PreviewPage />} />
         <Route path="*" element={<NotFoundPage />} />

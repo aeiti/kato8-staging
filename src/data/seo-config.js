@@ -86,6 +86,33 @@ export const gameRoutes = {
   },
 }
 
+// Per-game meta for the crowdfunding demo pages (`/crowdfunding-games/:slug`).
+// Placeholder content — all six share the same demo copy for now. The slug
+// list is kept in sync with `src/data/crowdfundingGames.js` by hand (this file
+// stays import-free so it's safely loadable by the Node prerender script).
+const CROWDFUNDING_SLUGS = [
+  'game-one',
+  'game-two',
+  'game-three',
+  'game-four',
+  'game-five',
+  'game-six',
+]
+
+export const crowdfundingGameRoutes = Object.fromEntries(
+  CROWDFUNDING_SLUGS.map((slug) => [
+    slug,
+    {
+      title: 'Crowdfunding Game | Kato.8 Studios',
+      description:
+        'A sample crowdfunding game from Kato.8 Studios. Placeholder details — full campaign info coming soon.',
+      ogTitle: 'Crowdfunding Game — Kato.8 Studios',
+      ogDescription:
+        'A sample crowdfunding game from Kato.8 Studios. Placeholder details — full campaign info coming soon.',
+    },
+  ]),
+)
+
 export const NOT_FOUND_META = {
   title: 'Page not found | Kato.8 Studios',
   description: "The page you're looking for doesn't exist.",
@@ -98,6 +125,8 @@ export function getRouteMeta(pathname) {
   if (staticRoutes[pathname]) return staticRoutes[pathname]
   const gameMatch = pathname.match(/^\/games\/([^/]+)\/?$/)
   if (gameMatch && gameRoutes[gameMatch[1]]) return gameRoutes[gameMatch[1]]
+  const cfMatch = pathname.match(/^\/crowdfunding-games\/([^/]+)\/?$/)
+  if (cfMatch && crowdfundingGameRoutes[cfMatch[1]]) return crowdfundingGameRoutes[cfMatch[1]]
   return null
 }
 
@@ -106,5 +135,6 @@ export function listPrerenderRoutes() {
   return [
     ...Object.keys(staticRoutes),
     ...Object.keys(gameRoutes).map((slug) => `/games/${slug}`),
+    ...Object.keys(crowdfundingGameRoutes).map((slug) => `/crowdfunding-games/${slug}`),
   ]
 }
