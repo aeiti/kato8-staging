@@ -8,8 +8,7 @@ import { Link } from 'react-router-dom'
  *
  * Visual (matches the design template): a light card with a top image
  * block, category chips, title, and short description. The whole card is a
- * link to `/crowdfunding-games/:slug` (those detail pages ship in a later
- * PR, so the link currently 404s in-app).
+ * link to `/crowdfunding-games/:slug`, handled by `CrowdfundingGamePage`.
  *
  * Props:
  *   game — entry from `src/data/crowdfundingGames.js`. Uses:
