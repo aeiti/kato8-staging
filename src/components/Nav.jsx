@@ -9,9 +9,10 @@ import MobileMenu from './MobileMenu'
  *
  * Rendered once at the app root in App.jsx (appears on every page).
  *
- * Desktop layout: logo (links home) on the left; Games dropdown, About
- * link, and social icons on the right. The Games dropdown lists every
- * entry in `src/data/games.js`.
+ * Desktop layout: logo (links home) on the left; Games dropdown, a
+ * Crowdfunding link (to the `/crowdfunding-games` landing), About link,
+ * and social icons on the right. The Games dropdown lists every entry in
+ * `src/data/games.js`.
  *
  * Mobile layout: hamburger button instead of the right-side controls.
  * Tapping it toggles a `MobileMenu` overlay (which Nav owns the open
@@ -110,9 +111,9 @@ export default function Nav() {
             </nav>
           </div>
 
-          <nav role="navigation" className="nav_menu w-nav-menu">
-            <ul role="list" className="nav_menu-list w-list-unstyled" />
-          </nav>
+          <Link to="/crowdfunding-games" className="nav-about-link">
+            Crowdfunding
+          </Link>
 
           <Link to="/about-us" className="nav-about-link">
             About
