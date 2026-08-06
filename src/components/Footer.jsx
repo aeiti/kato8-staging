@@ -62,6 +62,11 @@ export default function Footer() {
                     </Link>
                   </div>
                 ))}
+                <div role="listitem" className="nav-games-item w-dyn-item">
+                  <Link to="/crowdfunding-games" className="link footer-link">
+                    Crowdfunding
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

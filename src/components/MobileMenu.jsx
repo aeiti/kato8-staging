@@ -9,7 +9,8 @@ import { socialLinks, SocialIcon } from './SocialIcons'
  * Rendered by `Nav`. Owns the backdrop + side panel; `Nav` owns the
  * hamburger button and the open/close state.
  *
- * Sections (mirror the desktop nav): Games (from `games.js`), Studio
+ * Sections (mirror the desktop nav): Games (from `games.js`),
+ * Crowdfunding (link to the `/crowdfunding-games` landing), Studio
  * (About link), Community (social icons from `SocialIcons`).
  *
  * Behavior:
@@ -65,6 +66,17 @@ export default function MobileMenu({ open, onClose }) {
                 </Link>
               </li>
             ))}
+          </ul>
+        </div>
+
+        <div className="mobile-menu-section">
+          <h2 className="mobile-menu-heading">Crowdfunding</h2>
+          <ul className="mobile-menu-list">
+            <li>
+              <Link to="/crowdfunding-games" className="mobile-menu-link">
+                Browse all
+              </Link>
+            </li>
           </ul>
         </div>
 
