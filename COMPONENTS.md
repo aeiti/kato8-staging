@@ -13,6 +13,7 @@ main.jsx
 └── <App>                              src/App.jsx
     ├── <ScrollToTop>                  zero-render; scrolls to top on route change
     ├── <Analytics>                    zero-render; fires GA page_view on route change
+    ├── <ConventionBanner>             announcement strip above the nav (temporary)
     ├── <Nav>                          persistent top bar
     │   └── <MobileMenu>               hamburger overlay (narrow viewports)
     │       └── <SocialIcon>
@@ -24,6 +25,13 @@ main.jsx
     │   │                   │   └── <GameCard>           (one per game)
     │   │                   └── <SupportSection>
     │   │                       └── <GoFundMeWidget>
+    │   ├── /games/last-light
+    │   │                → <SimpleGamePage slug="last-light">   ★ staging-only
+    │   │                   ├── <Seo>
+    │   │                   ├── <KickstarterButton>          (if game.kickstarterUrl)
+    │   │                   ├── <ConceptArtGallery>
+    │   │                   ├── <PlaytestSignupForm>
+    │   │                   └── <DiscordSignupForm>
     │   ├── /games/:slug → <GamePage>
     │   │                   ├── <Seo>
     │   │                   ├── <KickstarterButton>          (if game.kickstarterUrl)
@@ -33,10 +41,25 @@ main.jsx
     │   ├── /about-us    → <AboutPage>
     │   │                   ├── <Seo>
     │   │                   └── <GoFundMeWidget>
+    │   ├── /crowdfunding-games
+    │   │                → <CrowdfundingGamesPage>            ★ staging-only
+    │   │                   ├── <Seo>
+    │   │                   └── <CrowdfundingGameGrid>
+    │   │                       └── <CrowdfundingGameCard>   (one per entry)
+    │   ├── /crowdfunding-games/:slug
+    │   │                → <CrowdfundingGamePage>             ★ staging-only
+    │   │                   └── <Seo>
+    │   ├── /preview, /preview/:name
+    │   │                → <PreviewPage>                      ★ staging-only
     │   └── *            → <NotFoundPage>
     │                       └── <Seo noindex>
     └── <Footer>                       persistent bottom bar
 ```
+
+**★ staging-only** — these routes exist in this repo but not in prod
+(`terrytkato8/external-site`). See [Staging-only surface](#staging-only-surface)
+below. Route order matters: `/games/last-light` is declared *before*
+`/games/:slug` so the literal path wins the match.
 
 ## Pages
 
@@ -62,6 +85,7 @@ These mount once at the app root (see `App.jsx`) and appear on every page.
 | `<MobileMenu>` | [`src/components/MobileMenu.jsx`](./src/components/MobileMenu.jsx) | Slide-in panel for narrow viewports. Rendered by `Nav`. |
 | `<Analytics>` | [`src/components/Analytics.jsx`](./src/components/Analytics.jsx) | Zero-render. Fires GA `page_view` on every route change. |
 | `<ScrollToTop>` | [`src/components/ScrollToTop.jsx`](./src/components/ScrollToTop.jsx) | Zero-render. Scrolls window to top on every route change. |
+| `<ConventionBanner>` | [`src/components/ConventionBanner.jsx`](./src/components/ConventionBanner.jsx) | Thin announcement strip above `Nav`. Lists upcoming in-person appearances from a `conventions` array at the top of the file; each entry's `href` is optional (null renders plain text). **Temporary** — unmount from `App.jsx` once the listed events have passed. |
 
 ## Page sections
 
@@ -99,6 +123,30 @@ These define the content the components render. Editing them is usually how you 
 | Playtest endpoints | [`src/data/playtestEndpoints.js`](./src/data/playtestEndpoints.js) | Per-game Formspree endpoint for `<PlaytestSignupForm>`, keyed by slug. Mirror any change in [FORMSPREE.md](./FORMSPREE.md). |
 | Discord endpoints | [`src/data/discordEndpoints.js`](./src/data/discordEndpoints.js) | Per-game Formspree endpoint for `<DiscordSignupForm>`, keyed by slug. Mirror any change in [FORMSPREE.md](./FORMSPREE.md). |
 
+## Staging-only surface
+
+The two repos are described as "intentionally near-identical," and for
+shared files that holds. But this repo carries work that has **not** landed
+on prod `main`. Anything below exists only here — don't assume a change
+that touches these files can be mirrored to prod as-is, and don't assume a
+prod-side patch covers them.
+
+| Module | File | Notes |
+|---|---|---|
+| `<SimpleGamePage>` | [`src/pages/SimpleGamePage.jsx`](./src/pages/SimpleGamePage.jsx) | Alternative game-detail layout (portrait cover left, title + tags + single description block right, gallery underneath). Takes `slug` as a **prop**, not from `useParams()` — its route path is the literal slug. Currently only `/games/last-light` uses it; prod routes that page through the generic `GamePage`. Styles: `src/styles/main/pages/simple-game.css`. |
+| `<CrowdfundingGamesPage>` | [`src/pages/CrowdfundingGamesPage.jsx`](./src/pages/CrowdfundingGamesPage.jsx) | Landing page at `/crowdfunding-games`. Heading block + `CrowdfundingGameGrid`. |
+| `<CrowdfundingGamePage>` | [`src/pages/CrowdfundingGamePage.jsx`](./src/pages/CrowdfundingGamePage.jsx) | Detail page at `/crowdfunding-games/:slug`. Borrows `SimpleGamePage`'s main-section layout but stops there — no gallery, no forms, no Kickstarter button. Placeholder demo content. |
+| `<CrowdfundingGameGrid>` / `<CrowdfundingGameCard>` | [`src/components/CrowdfundingGameGrid.jsx`](./src/components/CrowdfundingGameGrid.jsx), [`src/components/CrowdfundingGameCard.jsx`](./src/components/CrowdfundingGameCard.jsx) | Grid + tile for the landing page. Card is a whole-tile `Link`. Styles: `src/styles/main/pages/crowdfunding-games.css`. |
+| Crowdfunding games data | [`src/data/crowdfundingGames.js`](./src/data/crowdfundingGames.js) | Single source of truth for the crowdfunding entries, plus `getCrowdfundingGameBySlug()`. Placeholder copy. |
+| `<PreviewPage>` + registry | [`src/preview/PreviewPage.jsx`](./src/preview/PreviewPage.jsx), [`src/preview/registry.jsx`](./src/preview/registry.jsx) | Internal preview library at `/preview` and `/preview/:name`, rendered inside the normal Nav/Footer chrome. Add an entry to `registry.jsx` to register a preview; new group names must also be added to `GROUP_ORDER` in `PreviewPage.jsx`. |
+
+**Mirroring to prod:** copy files and re-apply edits by hand. `git am` /
+cherry-pick across the two repos reliably fails on context, because these
+extra imports and routes shift line numbers in otherwise-shared files like
+`App.jsx`. Before calling a mirror complete, grep this repo's `App.jsx` for
+game-shaped route targets — a change made only to `GamePage` silently skips
+`/games/last-light`.
+
 ## Common tasks
 
 | Goal | What to edit |
@@ -111,6 +159,7 @@ These define the content the components render. Editing them is usually how you 
 | Add a static asset | Drop into `public/assets/`, reference via `asset('/assets/...')` |
 | Change home page hero text | `src/components/Hero.jsx` |
 | Change About copy | `src/pages/AboutPage.jsx` (hand-authored, no data file) |
+| Update or retire the convention banner | `src/components/ConventionBanner.jsx` (edit the `conventions` array); to retire it, remove the `<ConventionBanner />` mount in `App.jsx` |
 | Add a new route | New `<Route>` in `App.jsx`, new file in `src/pages/`, new entry in `src/data/seo-config.js` |
 | Update concept art for a game | Drop / rename / `git rm` files under `src/assets/games/<game-slug>/concept/<category>/`. No code change. See [Concept-art authoring](#concept-art-authoring). |
 | Add a Kickstarter CTA to a game | Set `kickstarterUrl` on the game's entry in `src/data/games.js`. The button appears automatically. |
