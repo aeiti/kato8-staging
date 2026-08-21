@@ -28,6 +28,13 @@ const base = target === 'staging' ? '/kato8-staging/' : '/'
 export default defineConfig({
   plugins: [generateImageVariants, react()],
   base,
+  // `host: true` binds the dev server to every network interface (0.0.0.0),
+  // so phones/tablets on the same Wi-Fi can hit http://<your-lan-ip>:5173 —
+  // e.g. for scanning a convention QR at the real device. Config-level so it
+  // holds no matter how the server is started (`npm run dev`, the launcher, etc.).
+  server: {
+    host: true,
+  },
   build: {
     outDir: 'docs',
   },
