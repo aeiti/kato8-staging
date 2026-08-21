@@ -51,13 +51,21 @@ const rawGames = [
     categories: ['2D Side-Scroller', 'Action/Adventure'],
     bgColor: '#ff9183',
     bgImage: '/assets/img/universal-serial-blade-outside-city-concept.jpg',
+    cardLogo: {
+      src: '/assets/img/usbwhite.png',
+      alt: 'Universal Serial Blade logo',
+    },
+    pageLogo: {
+      src: '/assets/img/universal-serial-blade-logo.png',
+      alt: 'Universal Serial Blade logo',
+    },
     kickstarterUrl: 'https://www.kickstarter.com/projects/kato8-lastlight/universal-serial-blade-usb',
     comingSoon: true,
     framedArt: true,
     heroBackground: {
       primary: '/assets/img/universal-serial-blade-hero-background.svg',
       overlay: '/assets/img/wire-layer.webp',
-      anchorTop: false,
+      anchorTop: true,
     },
     gameplay: [
       "Universal Serial Blade isn't just a nostalgic callback to side-scrolling action games of the 90s and 00s, it's an evolution of the formula. Combat is fast and fluid, allowing any player to unlock the full power of their creativity with a customizable move-set and a highly flexible combo system. Players will fight challenging bosses, meet colorful characters, combo tens of enemies at a time, and unlock new powers as they fight their way through the AI Apocalypse to save humanity from their tragic fate.",
@@ -86,6 +94,18 @@ const rawGames = [
     kickstarterUrl: 'https://www.kickstarter.com/projects/kato8-lastlight/last-light-0',
     comingSoon: false,
     framedArt: false,
+    cardLogo: {
+      src: '/assets/img/last-light-logo-white.png',
+      alt: 'Last Light logo',
+    },
+    pageLogo: {
+      src: '/assets/img/last-light-logo-white.png',
+      alt: 'Last Light logo',
+    },
+    heroBackground: {
+      anchorTop: true,
+      primary: '/assets/img/last-light-cover.jpg',
+    },
     coverImage: {
       src: '/assets/img/last-light-cover.svg',
       alt: 'Last Light cover art',
@@ -103,7 +123,7 @@ const rawGames = [
       'Scavenge. Build. Survive the night.',
     ],
     storyImage: {
-      src: '/assets/img/enemy-idea-2-3200.png',
+      src: '/assets/img/last-light-concept.png',
       alt: 'Last Light concept art',
     },
     conceptArt: [],
@@ -118,6 +138,16 @@ const rawGames = [
     bgImage: '/assets/img/big-boss-cleanup-cover.jpg',
     comingSoon: false,
     framedArt: false,
+    cardLogo: {
+      src: '/assets/img/bbcl-logo-final-red.png',
+    },
+    pageLogo: {
+      src: '/assets/img/bbcl-logo-final-red.png',
+    },
+    heroBackground: {
+      primary: '/assets/img/big-boss-cleanup-cover.jpg',
+      anchorTop: false,
+    },
     gameplay: [
       'The battle may be over… but the mess remains.',
       "In Big Boss Cleanup, players take on the role of the world's most overworked janitor by cleaning up the catastrophic aftermath of legendary combat fights.",
@@ -133,7 +163,7 @@ const rawGames = [
       "Someone has to clean up the heroes' mess.",
     ],
     storyImage: {
-      src: '/assets/img/enemy-idea-2-3200.png',
+      src: '/assets/img/library-hero-size.jpg',
       alt: 'Big Boss Cleanup concept art',
     },
     conceptArt: [],
