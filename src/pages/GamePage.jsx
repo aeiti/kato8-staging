@@ -39,9 +39,11 @@ function RichText({ paragraphs, extraClass = '' }) {
  *   - Background art (desktop only): the layered hero backdrop comes from
  *     `game.heroBackground` — `primary` is the base layer, `overlay` a second
  *     layer above it, and `anchorTop` pins the block to the top of the window.
- *     A game with no `heroBackground` renders no backdrop. The mobile
- *     decorative band (`mobile-bg.svg`) is separate and always present.
- *   - Hero section: title, tags (incl. "Coming soon" if `game.comingSoon`),
+ *     A game with no `heroBackground` renders no backdrop. Below 991px the
+ *     desktop backdrop is hidden and a decorative band shows instead — it
+ *     reuses `heroBackground.primary`, falling back to `mobile-bg.svg`.
+ *   - Hero section: title, the "Coming soon" status badge (if `game.comingSoon`),
+ *     category badges (only if `game.showCategoryBadges` — off by default),
  *     optional framed art (`game.framedArt`), and gameplay copy.
  *   - Story section: long-form story paragraphs + optional `game.storyImage`.
  *   - Concept Art gallery: `<ConceptArtGallery>` reads images from
@@ -100,10 +102,22 @@ export default function GamePage({ slug: slugProp }) {
                 )}
               </h1>
             </div>
-            {/* Title tags (Coming soon + genre categories) were removed from the
-              * game page in the 2026-08 UI/UX pass. The data (`game.categories`,
-              * `game.comingSoon`) and the `.title-tag*` styles are kept so the
-              * tags live on in the sandbox and can be re-enabled here later. */}
+            {/* Title tags: "Coming soon" shows when `game.comingSoon`; genre
+              * category badges show only when `game.showCategoryBadges` (an
+              * admin toggle, off by default). Both hidden by default. */}
+            <div className="title-tags_wrapper">
+              {game.comingSoon && (
+                <div className="title-tag coming-soon">
+                  <div className="title-tag_tag-text">Coming soon</div>
+                </div>
+              )}
+              {game.showCategoryBadges &&
+                game.categories.map((category) => (
+                  <div key={category} className="title-tag category">
+                    <div className="title-tag_tag-text">{category}</div>
+                  </div>
+                ))}
+            </div>
 
             {/* Mobile-only decorative band behind the title block. It lives
               * inside the title wrapper so its bottom edge can be anchored to
