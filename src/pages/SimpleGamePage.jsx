@@ -48,21 +48,22 @@ export default function SimpleGamePage({ slug }) {
         <div className="simple-game-info">
           <div className="simple-game-title-block">
             <h1 className="simple-game-title">{game.title}</h1>
-            {(game.comingSoon || game.categories.length > 0) && (
+            {(game.comingSoon || (game.showCategoryBadges && game.categories.length > 0)) && (
               <div className="simple-game-tags">
                 {game.comingSoon && (
                   <span className="simple-game-tag simple-game-tag-coming-soon">
                     Coming Soon
                   </span>
                 )}
-                {game.categories.map((category) => (
-                  <span
-                    key={category}
-                    className="simple-game-tag simple-game-tag-category"
-                  >
-                    {category}
-                  </span>
-                ))}
+                {game.showCategoryBadges &&
+                  game.categories.map((category) => (
+                    <span
+                      key={category}
+                      className="simple-game-tag simple-game-tag-category"
+                    >
+                      {category}
+                    </span>
+                  ))}
               </div>
             )}
           </div>
