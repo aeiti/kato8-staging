@@ -54,11 +54,8 @@ function RichText({ paragraphs, extraClass = '' }) {
  * SEO meta comes from `gameRoutes[slug]` in `src/data/seo-config.js`.
  * Skipped silently if no entry exists for the slug.
  */
-export default function GamePage({ slug: slugProp }) {
-  const params = useParams()
-  // Per-game wrapper components (src/pages/games/*) pass an explicit `slug`;
-  // the generic `/games/:slug` route falls back to the URL param.
-  const slug = slugProp ?? params.slug
+export default function GamePage() {
+  const { slug } = useParams()
   const game = getGameBySlug(slug)
 
   if (!game) return <NotFoundPage />
