@@ -29,7 +29,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: .nvmrc
           cache: 'npm'
 
       - run: npm ci
@@ -42,6 +42,11 @@ jobs:
           # the endpoint isn't configured.
           VITE_NEWSLETTER_ENDPOINT: ${{ vars.VITE_NEWSLETTER_ENDPOINT }}
         run: npm run build
+
+      - name: Check built site for broken internal references
+        # Runs before the artifact is uploaded, so a bad asset path fails the
+        # workflow instead of shipping a 404. Same script as prod's deploy.
+        run: node scripts/check-built-site.mjs
 
       - uses: actions/configure-pages@v5
 
