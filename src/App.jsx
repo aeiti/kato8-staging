@@ -9,6 +9,7 @@ import HomePage from './pages/HomePage'
 import GamePage from './pages/GamePage'
 import SimpleGamePage from './pages/SimpleGamePage'
 import AboutPage from './pages/AboutPage'
+import InvestorsPage from './pages/InvestorsPage'
 import CrowdfundingGamesPage from './pages/CrowdfundingGamesPage'
 import CrowdfundingGamePage from './pages/CrowdfundingGamePage'
 import NotFoundPage from './pages/NotFoundPage'
@@ -27,6 +28,7 @@ import PreviewPage from './preview/PreviewPage'
  *   `/games/last-light`        → SimpleGamePage (simplified layout)
  *   `/games/:slug`             → GamePage (404s in-app for unknown slugs)
  *   `/about-us`                → AboutPage
+ *   `/investors`               → InvestorsPage
  *   `/crowdfunding-games`      → CrowdfundingGamesPage (landing grid)
  *   `/crowdfunding-games/:slug`→ CrowdfundingGamePage (demo detail)
  *   anything else              → NotFoundPage
@@ -64,6 +66,7 @@ export default function App() {
         <Route path="/games/last-light" element={<SimpleGamePage slug="last-light" />} />
         <Route path="/games/:slug" element={<GamePage />} />
         <Route path="/about-us" element={<AboutPage />} />
+        <Route path="/investors" element={<InvestorsPage />} />
         <Route path="/crowdfunding-games" element={<CrowdfundingGamesPage />} />
         <Route path="/crowdfunding-games/:slug" element={<CrowdfundingGamePage />} />
         <Route path="/preview" element={<PreviewPage />} />
